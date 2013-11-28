@@ -15,7 +15,7 @@ Clone it & run.
 Screenshot
 ----------
 <p align="center" >
-  <img src="https://raw.github.com/BlackLee/BLNestedTableView/master/Screenshots/1.png" alt="BLNestedTableView" title="BLNestedTableView">
+  <img src="https://raw.github.com/BlackLee/BLNestedTableView/master/Screenshots/1.png" alt="BLNestedTableView" title="BLNestedTableView" style="width:248px; height:360px;">
 </p>
 
 
