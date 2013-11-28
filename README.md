@@ -2,6 +2,7 @@ BLNestedTableView
 =================
 
 A nested UITableView
+
 It has two levels' tableView:
  - the main tableView is the top level view.
  - and many nestedTableViews are the second level view.
@@ -14,7 +15,7 @@ Clone it & run.
 Screenshot
 ----------
 <p align="center" >
-  <img src="https://raw.github.com/BlackLee/BLNestedTableView/Screenshots/1.png" alt="BLNestedTableView" title="BLNestedTableView">
+  <img src="https://raw.github.com/BlackLee/BLNestedTableView/master/Screenshots/1.png" alt="BLNestedTableView" title="BLNestedTableView">
 </p>
 
 
@@ -58,6 +59,10 @@ See BLViewController.m
     NSLog(@"mainTableView: didSelectRowAtIndexPath:  %d-%d", indexPath.section, indexPath.row);
 }
 
+- (UITableViewStyle) nestedTableViewStyle {
+    return UITableViewStyleGrouped;
+}
+
 - (CGFloat) mainTableView:(BLMainTableView *)mainTableView heightForNestedTableViewForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 22 * 3 + 36 + 36;
 }
@@ -86,10 +91,6 @@ See BLViewController.m
 
 - (void) nestedTableView:(UITableView *)nestedTableView forMainTableViewRowAtIndexPath:(NSIndexPath *)mainIndexPath didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"nestedTableView: didSelect:   %d-%d     %d-%d", mainIndexPath.section, mainIndexPath.row, indexPath.section, indexPath.row);
-}
-
-- (UITableViewStyle) nestedTableViewStyle {
-    return UITableViewStyleGrouped;
 }
 
 ```
