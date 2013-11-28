@@ -85,16 +85,17 @@
     int sec = indexPath.section;
     int row = indexPath.row;
     int rowForMainCell = row;
-    for (NSIndexPath *idxPath in expandIndexPathes) {
-        if (idxPath.section == sec) {
-            if (indexPath.row < row) {
-                rowForMainCell -= 1;
-            }
-        }
-    }
     
     if ([self showingNestedTableViewInSection:sec row:row]) {
-        NSIndexPath *mainIndexPath = [NSIndexPath indexPathForRow:rowForMainCell-1 inSection:sec];
+        rowForMainCell -= 1;
+        for (NSIndexPath *idxPath in expandIndexPathes) {
+            if (idxPath.section == sec) {
+                if (idxPath.row < row) {
+                    rowForMainCell -= 1;
+                }
+            }
+        }
+        NSIndexPath *mainIndexPath = [NSIndexPath indexPathForRow:rowForMainCell inSection:sec];
         BLTableContainerCell *tableContainerCell = [self dequeueReusableCellWithIdentifier:@"tableContainerCell"];
         if (!tableContainerCell) {
             UITableViewStyle tableViewStyle = [self.ntDelegate nestedTableViewStyle];
@@ -116,13 +117,6 @@
     int sec = indexPath.section;
     int row = indexPath.row;
     int rowForMainCell = row;
-    for (NSIndexPath *idxPath in expandIndexPathes) {
-        if (idxPath.section == sec) {
-            if (indexPath.row < row) {
-                rowForMainCell -= 1;
-            }
-        }
-    }
     
     if ([tableView isMemberOfClass:[BLMainTableView class]]) {
         if ([self showingNestedTableViewInSection:indexPath.section row:indexPath.row+1]) {
@@ -135,6 +129,14 @@
             [self insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         
+        for (NSIndexPath *idxPath in expandIndexPathes) {
+            if (idxPath.section == sec) {
+                if (idxPath.row < row) {
+                    rowForMainCell -= 1;
+                }
+            }
+        }
+        
         [self.ntDelegate mainTableView:self didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:rowForMainCell inSection:sec]];
     } else {
         [self.ntDelegate nestedTableView:tableView forMainTableViewRowAtIndexPath:tableView.objectTag didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:rowForMainCell inSection:sec]];
@@ -144,6 +146,7 @@
 #pragma mark - handle logic of expandIndexPathes
 
 - (void) expandNestedViewOfIndexPath:(NSIndexPath*) indexPath { // 存储展开后的那行
+    int row = indexPath.row;
     for (int i = 0; i < expandIndexPathes.count; i++) {
         NSIndexPath *idxPath = expandIndexPathes[i];
         if (idxPath.section == indexPath.section) {
@@ -153,7 +156,7 @@
             }
         }
     }
-    [expandIndexPathes addObject:[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]];
+    [expandIndexPathes addObject:[NSIndexPath indexPathForRow:row+1 inSection:indexPath.section]];
     [self filterDuplicateIndexPath];
 }
 - (void) collapseNestedViewOfIndexPath:(NSIndexPath*) indexPath {

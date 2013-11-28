@@ -59,7 +59,7 @@
 }
 
 - (CGFloat) mainTableView:(BLMainTableView *)mainTableView heightForNestedTableViewForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 22 * 3 + 36 + 36;
+    return 22 * 3;
 }
 
 - (NSInteger) numberOfSectionsInNestedTableView:(UITableView*) nestedTableView forMainTableViewRowAtIndexPath:(NSIndexPath *)mainIndexPath {
@@ -89,7 +89,7 @@
 }
 
 - (UITableViewStyle) nestedTableViewStyle {
-    return UITableViewStyleGrouped;
+    return UITableViewStylePlain;
 }
 
 @end
