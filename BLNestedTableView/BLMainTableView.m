@@ -210,6 +210,10 @@
 - (void) setDelegate:(id<UITableViewDelegate>)delegate {
     assert(NO);
 }
+- (void) reloadData {
+    [expandIndexPathes removeAllObjects];
+    [super reloadData];
+}
 
 #pragma mark - initializers
 
